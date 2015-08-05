@@ -1,9 +1,10 @@
 doctype html
 html
-  head
-    title #{title}
-    link(rel="stylesheet", href="/stylesheets/style.css")
-    block scripts
-      script(src="https://demo.yubico.com/js/u2f-api.js")
-  body
-    block content
+    head
+        title #{title}
+        link(rel="stylesheet", href="/stylesheets/style.css")
+        block scripts
+            script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js")
+            script(src="https://demo.yubico.com/js/u2f-api.js")
+    body
+        block content

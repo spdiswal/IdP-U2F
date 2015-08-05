@@ -1,20 +1,31 @@
-'use strict';
+"use strict";
 
-var request = null;
+function register()
+{
+    $("#register").hide();
+    $("#touch").show();
 
-setTimeout(function() {
-    if(request === null){
-        return;
-    }
-    u2f.register([request], [],
-        function(data) {
-            var form = document.getElementById('form');
-            var reg = document.getElementById('tokenResponse');
-            if(data.errorCode) {
-                alert("U2F failed with error: " + data.errorCode);
-                return;
-            }
-            reg.value=JSON.stringify(data);
-            form.submit();
-        });
-}, 1000);
+    u2f.register([request], [], function (yubiKeyData)
+    {
+        $("#touch").hide();
+
+        if (yubiKeyData.errorCode)
+            $("#failure").show();
+        else
+        {
+            $.ajax({
+                type:        "POST",
+                url:         "/manage",
+                data:        JSON.stringify(yubiKeyData),
+                contentType: "application/json",
+                success:     function () { $("#success").show(); },
+                error:       function () { $("#failure").show(); }
+            });
+        }
+    });
+}
+
+function unregister()
+{
+    // TODO
+}

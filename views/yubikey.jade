@@ -1,6 +1,13 @@
 extends layout
+append scripts
+    script var request = !{u2freq}
+    script(src="/js/yubikey.js")
 
 block content
     h1 Authenticate with YubiKey
-    p Insert your YubiKey token into your PC and touch the button to sign in.
-    p I'll be waiting patiently ...
+
+    p#touch: b(style="color:orange").
+        Insert the YubiKey token into your PC and touch the button to sign in.
+        I'll be waiting patiently ...
+    p#success(style="display:none"): b(style="color:green") Authentication successful
+    p#failure(style="display:none"): b(style="color:red") Authentication failed

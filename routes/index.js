@@ -1,14 +1,12 @@
 var express = require("express");
 var router = express.Router();
 var NeDB = require("nedb");
-var session = require('express-session');
 
-/* Show page for signing in. */
 router.get("/", function (req, res, next)
 {
     res.render("index", {
-        error: req.query.error,
-        username: req.session.username,
+        error:           req.query.error,
+        username:        req.session.username,
         isAuthenticated: req.session.isAuthenticated
     });
 });
@@ -19,22 +17,22 @@ router.post("/", function (req, res, next)
     var password = req.body.password;
     var db = new NeDB({filename: 'data/data.db', autoload: true});
 
-    db.find({username: username, password: password}, function (err, docs)
+    db.findOne({username: username, password: password}, function (err, doc)
     {
-        if (docs.length === 1)
+        if (doc)
         {
-            req.session.username = docs[0].username;
+            req.session.username = doc.username;
 
-            //if (docs[0].useYubiKey)
-            //{
+            if (doc.useYubiKey)
+            {
                 req.session.isAuthenticated = false;
                 res.redirect('/yubikey');
-            //}
-            //else
-            //{
-            //    req.session.isAuthenticated = true;
-            //    res.redirect('/');
-            //}
+            }
+            else
+            {
+                req.session.isAuthenticated = true;
+                res.redirect('/');
+            }
         }
         else
         {

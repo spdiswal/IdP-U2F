@@ -1,18 +1,23 @@
 extends layout
 append scripts
+    script var request = !{u2freq}
     script(src="/js/manage.js")
 
 block content
-    script.
-        var request = !{u2freq}
     h1 Manage two-factor authentication
-
-    form(method="POST", action="finishRegistration" id="form" onsubmit="return false;")
-        input(input="hidden", name="username", value="${username}")
-        input(input="hidden", name="tokenResponse", id="tokenResponse")
 
     unless error
         h3 Hello #{username}!
+
+        if useYubiKey
+            button#register(onclick="register()") Register YubiKey
+            p#touch(style="display:none"): b(style="color:orange") Touch the YubiKey now to register it
+            p#success(style="display:none"): b(style="color:green") Registration successful
+            p#failure(style="display:none"): b(style="color:red") Registration failed
+            p
+        else
+            button#unregister(onclick="unregister()") Unregister YubiKey
+
         a(href="/") Back to the front page.
         p
         a(href="/exit") Sign out

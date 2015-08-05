@@ -1,18 +1,21 @@
 var express = require("express");
 var router = express.Router();
 var NeDB = require("nedb");
-var session = require("express-session");
 var u2f = require("u2f");
+
+var appId = "https://localhost:3000";
 
 router.get("/", function (req, res, next)
 {
     var db = new NeDB({filename: 'data/data.db', autoload: true});
-    db.find({username: req.session.username}, function (err, docs)
+
+    db.findOne({username: req.session.username}, function (err, doc)
     {
-        if (!req.session.isAuthenticated && docs.length === 1)
+        if (!req.session.isAuthenticated && doc)
         {
-            req.session.authRequest = u2f.request("hipstr", docs[0].keyHandle);
-            res.render("yubikey");
+            var u2fRequest = u2f.request(appId, doc.keyHandle);
+            req.session.u2fRequest = u2fRequest;
+            res.render("yubikey", {u2freq: JSON.stringify(u2fRequest)});
         }
         else
             res.redirect("/?error=1");
@@ -22,11 +25,11 @@ router.get("/", function (req, res, next)
 router.post("/", function (req, res, next)
 {
     var db = new NeDB({filename: 'data/data.db', autoload: true});
-    db.find({username: req.session.username}, function (err, docs)
+    db.findOne({username: req.session.username}, function (err, doc)
     {
-        if (!req.session.isAuthenticated && docs.length === 1)
+        if (!req.session.isAuthenticated && doc)
         {
-            var checkResponse = u2f.checkSignature(req.session.authRequest, res, docs[0].publicKey);
+            var checkResponse = u2f.checkSignature(req.session.u2fRequest, req.body, doc.publicKey);
 
             if (checkResponse.successful)
             {

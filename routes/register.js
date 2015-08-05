@@ -2,7 +2,6 @@ var express = require("express");
 var NeDB = require("nedb");
 var router = express.Router();
 
-/* Registering new user. */
 router.get("/", function (req, res, next)
 {
     if (req.session.isAuthenticated)
@@ -22,15 +21,21 @@ router.post("/", function (req, res, next)
         var repeatPassword = req.body.repeatPassword;
         var db = new NeDB({filename: 'data/data.db', autoload: true});
 
-        db.find({username: username}, function (err, docs)
+        db.findOne({username: username}, function (err, doc)
         {
-            if (docs.length > 0)
+            if (doc)
                 res.redirect('/register?error=2');
             else
             {
                 if (password == repeatPassword)
                 {
-                    db.insert({username: username, password: password, useYubiKey: false}, function ()
+                    db.insert({
+                        username:   username,
+                        password:   password,
+                        useYubiKey: false,
+                        keyHandle:  null,
+                        publicKey:  null
+                    }, function ()
                     {
                         req.session.username = username;
                         req.session.isAuthenticated = true;
