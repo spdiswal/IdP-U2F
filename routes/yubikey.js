@@ -6,6 +6,7 @@ var u2f = require("u2f");
 
 router.get("/", function (req, res, next)
 {
+    var db = new NeDB({filename: 'data/data.db', autoload: true});
     db.find({username: req.session.username}, function (err, docs)
     {
         if (!req.session.isAuthenticated && docs.length === 1)
@@ -20,6 +21,7 @@ router.get("/", function (req, res, next)
 
 router.post("/", function (req, res, next)
 {
+    var db = new NeDB({filename: 'data/data.db', autoload: true});
     db.find({username: req.session.username}, function (err, docs)
     {
         if (!req.session.isAuthenticated && docs.length === 1)
