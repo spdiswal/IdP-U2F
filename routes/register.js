@@ -1,10 +1,10 @@
 var express = require("express");
 var router = express.Router();
 
-/* Signing in. */
+/* Registering new user. */
 router.get("/", function (req, res, next)
 {
-    res.render("index", {title: "Express"});
+    res.send("Register");
 });
 
 module.exports = router;
