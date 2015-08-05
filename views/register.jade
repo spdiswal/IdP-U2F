@@ -19,8 +19,5 @@ block content
     a(href="/") I have an account already.
 
     case error
-        when 1
-            p: b(style="color:red") Password and repeated password do not match
-
-        when 2
-            p: b(style="color:red") Username is already taken
+        when "1": p: b(style="color:red") Password and repeated password do not match
+        when "2": p: b(style="color:red") Username is already taken

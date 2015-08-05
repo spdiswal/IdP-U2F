@@ -25,15 +25,14 @@ router.post("/", function (req, res, next)
             {
                 db.insert({username: username, password: password}, function ()
                 {
+                    req.session.username = username;
                     res.redirect("/");
                 });
             }
         });
     }
     else
-    {
         res.redirect("/register?error=1");
-    }
 });
 
 module.exports = router;

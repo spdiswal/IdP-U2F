@@ -1,19 +1,23 @@
 extends layout
 
 block content
-    h1 Sign in and wait for the awesome!
+    if username
+        h1 Hello #{username}!
 
-    form(method="POST")
-        label(for="username") Username:
-            input#username(type="text", name="username")
-        p
-        label(for="password") Password:
-            input#password(type="password", name="password")
-        p
-        input(type="submit",value="Sign in!")
+    else
+        h1 Sign in and wait for the awesome!
 
-    br
-    a(href="/register") Have no account? Register one!
+        form(method="POST")
+            label(for="username") Username:
+                input#username(type="text", name="username")
+            p
+            label(for="password") Password:
+                input#password(type="password", name="password")
+            p
+            input(type="submit",value="Sign in!")
 
-    if error
-        p: b(style="color:red") Wrong username or password
+        br
+        a(href="/register") Have no account? Register one!
+
+        if error
+            p: b(style="color:red") Wrong username or password

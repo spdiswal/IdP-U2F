@@ -19,9 +19,8 @@ router.post("/", function (req, res, next)
     {
         if (docs.length > 0)
         {
-            console.log("HELLO THERE");
             req.session.username = username;
-            res.redirect('/manage');
+            res.redirect('/');
         }
         else
         {
