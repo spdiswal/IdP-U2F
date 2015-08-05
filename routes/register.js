@@ -18,13 +18,13 @@ router.post("/", function (req, res, next)
     var repeatPassword = req.body.repeatPassword;
     var db = new NeDB({filename: 'data/data.db', autoload: true});
 
-    if (password == repeatPassword)
+    db.find({username: username}, function (err, docs)
     {
-        db.find({username: username}, function (err, docs)
+        if (docs.length > 0)
+            res.redirect('/register?error=2');
+        else
         {
-            if (docs.length > 0)
-                res.redirect('/register?error=2');
-            else
+            if (password == repeatPassword)
             {
                 db.insert({username: username, password: password}, function ()
                 {
@@ -32,10 +32,10 @@ router.post("/", function (req, res, next)
                     res.redirect("/");
                 });
             }
-        });
-    }
-    else
-        res.redirect("/register?error=1");
+            else
+                res.redirect("/register?error=1");
+        }
+    });
 });
 
 module.exports = router;
