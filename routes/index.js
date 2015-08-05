@@ -6,7 +6,7 @@ var session = require('express-session');
 /* Show page for signing in. */
 router.get("/", function (req, res, next)
 {
-    res.render("index", {title: "Awesomeness!"});
+    res.render("index", {title: "Awesomeness!", error: req.query.error});
 });
 
 router.post("/", function (req, res, next)

@@ -4,7 +4,10 @@ var router = express.Router();
 /* Managing YubiKey devices. */
 router.get("/", function (req, res, next)
 {
-    res.render("manage", {username: req.session.username});
+    if(req.session.username)
+        res.render("manage", {username: req.session.username});
+    else
+        res.redirect('/?error=1');
 });
 
 module.exports = router;

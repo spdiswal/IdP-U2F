@@ -5,11 +5,15 @@ block content
 
     form(method="POST")
         label(for="username") Username:
-            input(type="text", id="username", name="username")
+            input#username(type="text", name="username")
         br
         label(for="password") Password:
-            input(type="password", id="password", name="password")
+            input#password(type="password", name="password")
         br
         input(type="submit",value="Sign in!")
 
     p Welcome to #{title}
+
+    if error
+        p
+            b(style="color:red") Wrong username or password
