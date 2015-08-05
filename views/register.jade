@@ -1,3 +1,16 @@
 extends layout
 
 block content
+    h1 Register your new account
+    form(method="POST")
+        label(for="username") Username:
+            input(type="text", id="username", name="username")
+        br
+        label(for="password") Password:
+            input(type="password", id="password", name="password")
+        br
+        label(for="repeatPassword") Repeat password:
+            input(type="password", id="repeatPassword", name="repeatPassword")
+        br
+        p You hereby agree on our non-existing terms and conditions.
+        input(type="submit",value="Register")

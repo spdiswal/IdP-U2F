@@ -4,7 +4,7 @@ var router = express.Router();
 /* Registering new user. */
 router.get("/", function (req, res, next)
 {
-    res.send("Register");
+    res.render("register");
 });
 
 module.exports = router;

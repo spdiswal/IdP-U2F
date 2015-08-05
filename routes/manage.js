@@ -4,7 +4,7 @@ var router = express.Router();
 /* Managing YubiKey devices. */
 router.get("/", function (req, res, next)
 {
-    res.send("Manage");
+    res.render("manage");
 });
 
 module.exports = router;
