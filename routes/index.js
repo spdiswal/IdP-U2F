@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var NeDB = require("nedb");
+var session = require('express-session');
 
 /* Show page for signing in. */
 router.get("/", function (req, res, next)
@@ -13,10 +14,27 @@ router.post("/", function (req, res, next)
     var username = req.body.username;
     var password = req.body.password;
     var db = new NeDB({ filename: 'data/data.db', autoload: true});
-    db.insert({username: 'alan', password: 'turing'}, function(err, newDoc)
+
+    db.find({username: username, password: password}, function(err, docs)
+    {
+        console.log(JSON.stringify(docs));
+        if(docs)
+        {
+            req.session.username = username;
+            res.redirect('/manage');
+        }
+        else
+        {
+            res.redirect('/?error=1');
+        }
+    });
+
+    db.insert({username: 'Edsger', password: 'Dijkstra'}, function(err, newDoc)
     {
         console.log(JSON.stringify(newDoc));
     });
+
+
 
     res.redirect('/');
 });
