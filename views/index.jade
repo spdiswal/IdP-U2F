@@ -22,5 +22,6 @@ block content
         br
         a(href="/register") Have no account? Register one!
 
-        if error
-            p: b(style="color:red") Wrong username or password
+        case error
+            when "1": p: b(style="color:red") Wrong username or password
+            when "2": p: b(style="color:red") YubiKey authentication failed

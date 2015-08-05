@@ -25,16 +25,16 @@ router.post("/", function (req, res, next)
         {
             req.session.username = docs[0].username;
 
-            if (docs[0].useYubiKey)
-            {
+            //if (docs[0].useYubiKey)
+            //{
                 req.session.isAuthenticated = false;
                 res.redirect('/yubikey');
-            }
-            else
-            {
-                req.session.isAuthenticated = true;
-                res.redirect('/');
-            }
+            //}
+            //else
+            //{
+            //    req.session.isAuthenticated = true;
+            //    res.redirect('/');
+            //}
         }
         else
         {
