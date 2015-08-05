@@ -26,9 +26,10 @@ router.post("/", function (req, res, next)
         {
             if (password == repeatPassword)
             {
-                db.insert({username: username, password: password}, function ()
+                db.insert({username: username, password: password, useYubiKey: false}, function ()
                 {
                     req.session.username = username;
+                    req.session.isAuthenticated = true;
                     res.redirect("/");
                 });
             }

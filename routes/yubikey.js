@@ -4,9 +4,7 @@ var session = require('express-session');
 
 router.get("/", function (req, res, next)
 {
-    delete req.session.username;
-    delete req.session.isAuthenticated;
-    res.redirect('/');
+    res.render("yubikey", {});
 });
 
 module.exports = router;

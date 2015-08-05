@@ -6,7 +6,11 @@ var session = require('express-session');
 /* Show page for signing in. */
 router.get("/", function (req, res, next)
 {
-    res.render("index", {error: req.query.error, username: req.session.username});
+    res.render("index", {
+        error: req.query.error,
+        username: req.session.username,
+        isAuthenticated: req.session.isAuthenticated
+    });
 });
 
 router.post("/", function (req, res, next)
@@ -17,10 +21,20 @@ router.post("/", function (req, res, next)
 
     db.find({username: username, password: password}, function (err, docs)
     {
-        if (docs.length > 0)
+        if (docs.length === 1)
         {
-            req.session.username = username;
-            res.redirect('/');
+            req.session.username = docs[0].username;
+
+            if (docs[0].useYubiKey)
+            {
+                req.session.isAuthenticated = false;
+                res.redirect('/yubikey');
+            }
+            else
+            {
+                req.session.isAuthenticated = true;
+                res.redirect('/');
+            }
         }
         else
         {

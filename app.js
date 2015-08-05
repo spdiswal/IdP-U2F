@@ -9,6 +9,7 @@ var index = require("./routes/index");
 var exit = require("./routes/exit");
 var manage = require("./routes/manage");
 var register = require("./routes/register");
+var yubikey = require("./routes/yubikey");
 
 var app = express();
 
@@ -27,6 +28,7 @@ app.use("/", index);
 app.use("/exit", exit);
 app.use("/manage", manage);
 app.use("/register", register);
+app.use("/yubikey", yubikey);
 
 // Error handlers.
 app.use(function (req, res, next)
