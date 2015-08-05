@@ -5,8 +5,10 @@ block content
 
     unless error
         h3 Hello #{username}!
+        a(href="/") Back to the front page.
+        p
+        a(href="/exit") Sign out
 
     if error
         p: b(style="color:red") You are not signed in!
-
         a(href="/") Click here to do so.
