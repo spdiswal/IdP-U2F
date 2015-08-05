@@ -28,15 +28,6 @@ router.post("/", function (req, res, next)
             res.redirect('/?error=1');
         }
     });
-
-    db.insert({username: 'Edsger', password: 'Dijkstra'}, function(err, newDoc)
-    {
-        console.log(JSON.stringify(newDoc));
-    });
-
-
-
-    res.redirect('/');
 });
 
 module.exports = router;
