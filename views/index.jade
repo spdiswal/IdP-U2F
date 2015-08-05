@@ -3,6 +3,8 @@ extends layout
 block content
     if username
         h1 Hello #{username}!
+        a(href="/manage") Manage your account
+        p
         a(href="/exit") Sign out
 
     else
