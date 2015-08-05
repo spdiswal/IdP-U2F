@@ -6,20 +6,20 @@ var session = require('express-session');
 /* Show page for signing in. */
 router.get("/", function (req, res, next)
 {
-    res.render("index", {title: "Awesomeness!", error: req.query.error});
+    res.render("index", {error: req.query.error});
 });
 
 router.post("/", function (req, res, next)
 {
     var username = req.body.username;
     var password = req.body.password;
-    var db = new NeDB({ filename: 'data/data.db', autoload: true});
+    var db = new NeDB({filename: 'data/data.db', autoload: true});
 
-    db.find({username: username, password: password}, function(err, docs)
+    db.find({username: username, password: password}, function (err, docs)
     {
-        console.log(JSON.stringify(docs));
-        if(docs)
+        if (docs.length > 0)
         {
+            console.log("HELLO THERE");
             req.session.username = username;
             res.redirect('/manage');
         }
@@ -31,10 +31,3 @@ router.post("/", function (req, res, next)
 });
 
 module.exports = router;
-
-//router.post("/", function (req, res, next)
-//{
-//    //console.log(req.body.username);
-//    //console.log(req.body.password);
-//    res.redirect("/");
-//});

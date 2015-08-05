@@ -5,12 +5,22 @@ block content
     form(method="POST")
         label(for="username") Username:
             input(type="text", id="username", name="username")
-        br
+        p
         label(for="password") Password:
             input(type="password", id="password", name="password")
-        br
+        p
         label(for="repeatPassword") Repeat password:
             input(type="password", id="repeatPassword", name="repeatPassword")
-        br
+        p
         p You hereby agree on our non-existing terms and conditions.
         input(type="submit",value="Register")
+
+    p
+    a(href="/") I have an account already.
+
+    case error
+        when 1
+            p: b(style="color:red") Password and repeated password do not match
+
+        when 2
+            p: b(style="color:red") Username is already taken

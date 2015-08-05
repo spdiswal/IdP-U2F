@@ -7,7 +7,7 @@ router.get("/", function (req, res, next)
     if(req.session.username)
         res.render("manage", {username: req.session.username});
     else
-        res.redirect('/?error=1');
+        res.render("manage", {error: 1});
 });
 
 module.exports = router;

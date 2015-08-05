@@ -6,14 +6,14 @@ block content
     form(method="POST")
         label(for="username") Username:
             input#username(type="text", name="username")
-        br
+        p
         label(for="password") Password:
             input#password(type="password", name="password")
-        br
+        p
         input(type="submit",value="Sign in!")
 
-    p Welcome to #{title}
+    br
+    a(href="/register") Have no account? Register one!
 
     if error
-        p
-            b(style="color:red") Wrong username or password
+        p: b(style="color:red") Wrong username or password

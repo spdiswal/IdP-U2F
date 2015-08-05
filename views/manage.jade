@@ -2,4 +2,11 @@ extends layout
 
 block content
     h1 Manage two-factor authentication
-    h3 Hello #{username}!
+
+    unless error
+        h3 Hello #{username}!
+
+    if error
+        p: b(style="color:red") You are not signed in!
+
+        a(href="/") Click here to do so.
