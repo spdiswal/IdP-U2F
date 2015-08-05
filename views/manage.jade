@@ -1,7 +1,15 @@
 extends layout
+append scripts
+    script(src="/js/manage.js")
 
 block content
+    script.
+        var request = !{u2freq}
     h1 Manage two-factor authentication
+
+    form(method="POST", action="finishRegistration" id="form" onsubmit="return false;")
+        input(input="hidden", name="username", value="${username}")
+        input(input="hidden", name="tokenResponse", id="tokenResponse")
 
     unless error
         h3 Hello #{username}!

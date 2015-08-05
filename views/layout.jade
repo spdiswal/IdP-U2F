@@ -3,6 +3,7 @@ html
   head
     title #{title}
     link(rel="stylesheet", href="/stylesheets/style.css")
-    script(src="/js/u2f-api.js")
+    block scripts
+      script(src="/js/u2f-api.js")
   body
     block content
