@@ -5,7 +5,10 @@ var router = express.Router();
 /* Registering new user. */
 router.get("/", function (req, res, next)
 {
-    res.render("register", {error: req.query.error});
+    if (req.session.username)
+        res.redirect("/");
+    else
+        res.render("register", {error: req.query.error});
 });
 
 router.post("/", function (req, res, next)
