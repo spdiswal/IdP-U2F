@@ -9,7 +9,7 @@ block content
     unless error
         h3 Hello #{username}!
 
-        if useYubiKey
+        if !useYubiKey
             button#register(onclick="register()") Register YubiKey
             p#touch(style="display:none"): b(style="color:orange") Touch the YubiKey now to register it
             p#success(style="display:none"): b(style="color:green") Registration successful
@@ -17,6 +17,7 @@ block content
             p
         else
             button#unregister(onclick="unregister()") Unregister YubiKey
+            p
 
         a(href="/") Back to the front page.
         p

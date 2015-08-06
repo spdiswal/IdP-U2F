@@ -27,5 +27,12 @@ function register()
 
 function unregister()
 {
-    // TODO
+    $.ajax({
+        type: "POST",
+        url: "/manage/unregister",
+        data: JSON.stringify({}),
+        contentType: "application/json",
+        success: function(){location.reload(true)},
+        error: function(){location.reload(true) }
+    })
 }
